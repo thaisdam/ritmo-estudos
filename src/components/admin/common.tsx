@@ -116,7 +116,7 @@ export function AssinanteDialog({
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open) return undefined;
     if (editing) setF({ ...editing, valor_mensal: String(editing.valor_mensal), dia_vencimento: String(editing.dia_vencimento) });
     else setF({ ...emptyForm(), ...initial });
   }, [open, editing, initial]);
