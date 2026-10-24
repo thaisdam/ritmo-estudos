@@ -120,10 +120,10 @@ O prompt completo usado no Lovable está em **[docs/mega-prompt.md](docs/mega-pr
 ### Correções pedidas depois
 O prompt único de correção está em **[docs/correcoes.md](docs/correcoes.md)**.
 
-<!-- PREENCHER DEPOIS DOS TESTES: resuma aqui em 3 a 6 itens o que foi corrigido -->
-1. ...
-2. ...
-3. ...
+1. **Implementação completa do painel admin:** construção das telas de Dashboard com indicadores e gráfico, gestão de Leads com busca e filtros, Assinantes com CRUD e status de mensalidade, Entregas com geração automática de agenda semanal, e Lembretes com abas (hoje, próximos, atrasados e concluídos).
+2. **Fluxo de conversão Lead → Assinante:** modal dinâmico que pré-carrega os dados do lead, vincula o ID e atualiza o status automaticamente para convertido sem duplicidade.
+3. **Agenda semanal automática:** rotina de geração de tarefas e check-ins conforme o plano de cada assinante (Essencial, Foco ou Intensivo) com link direto para conversa no WhatsApp.
+4. **Documentação completa de negócio e testes:** inclusão do Business Model Canvas, estimativas de mercado para Uberlândia-MG, plano de testes com 27 cenários e especificações do mega prompt.
 
 ---
 
