@@ -14,16 +14,258 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      assinantes: {
+        Row: {
+          created_at: string
+          curso: string | null
+          data_inicio: string
+          dia_vencimento: number
+          email: string | null
+          horario_checkin: string | null
+          id: string
+          instituicao: string | null
+          lead_id: string | null
+          nome: string
+          observacoes: string | null
+          pagamento_status: string
+          plano: string
+          status: string
+          valor_mensal: number
+          whatsapp: string
+        }
+        Insert: {
+          created_at?: string
+          curso?: string | null
+          data_inicio?: string
+          dia_vencimento: number
+          email?: string | null
+          horario_checkin?: string | null
+          id?: string
+          instituicao?: string | null
+          lead_id?: string | null
+          nome: string
+          observacoes?: string | null
+          pagamento_status?: string
+          plano: string
+          status?: string
+          valor_mensal: number
+          whatsapp: string
+        }
+        Update: {
+          created_at?: string
+          curso?: string | null
+          data_inicio?: string
+          dia_vencimento?: number
+          email?: string | null
+          horario_checkin?: string | null
+          id?: string
+          instituicao?: string | null
+          lead_id?: string | null
+          nome?: string
+          observacoes?: string | null
+          pagamento_status?: string
+          plano?: string
+          status?: string
+          valor_mensal?: number
+          whatsapp?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assinantes_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: true
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      entregas: {
+        Row: {
+          anotacoes: string | null
+          assinante_id: string
+          created_at: string
+          data: string
+          id: string
+          status: string
+          tipo: string
+        }
+        Insert: {
+          anotacoes?: string | null
+          assinante_id: string
+          created_at?: string
+          data: string
+          id?: string
+          status?: string
+          tipo: string
+        }
+        Update: {
+          anotacoes?: string | null
+          assinante_id?: string
+          created_at?: string
+          data?: string
+          id?: string
+          status?: string
+          tipo?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "entregas_assinante_id_fkey"
+            columns: ["assinante_id"]
+            isOneToOne: false
+            referencedRelation: "assinantes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      leads: {
+        Row: {
+          anotacoes: string | null
+          consentimento_lgpd: boolean
+          created_at: string
+          curso: string
+          cursos_complementares: string | null
+          dificuldades: string[]
+          email: string
+          faz_idioma: boolean
+          horario_checkin: string
+          horas_livres: number
+          horas_trabalho: number | null
+          id: string
+          idioma_detalhes: string | null
+          instituicao: string
+          nome: string
+          objetivo: string
+          periodo: number
+          plano_interesse: string
+          proximas_provas: string | null
+          status: string
+          trabalha: boolean
+          turno: string
+          whatsapp: string
+        }
+        Insert: {
+          anotacoes?: string | null
+          consentimento_lgpd?: boolean
+          created_at?: string
+          curso: string
+          cursos_complementares?: string | null
+          dificuldades?: string[]
+          email: string
+          faz_idioma?: boolean
+          horario_checkin: string
+          horas_livres: number
+          horas_trabalho?: number | null
+          id?: string
+          idioma_detalhes?: string | null
+          instituicao: string
+          nome: string
+          objetivo: string
+          periodo: number
+          plano_interesse: string
+          proximas_provas?: string | null
+          status?: string
+          trabalha?: boolean
+          turno: string
+          whatsapp: string
+        }
+        Update: {
+          anotacoes?: string | null
+          consentimento_lgpd?: boolean
+          created_at?: string
+          curso?: string
+          cursos_complementares?: string | null
+          dificuldades?: string[]
+          email?: string
+          faz_idioma?: boolean
+          horario_checkin?: string
+          horas_livres?: number
+          horas_trabalho?: number | null
+          id?: string
+          idioma_detalhes?: string | null
+          instituicao?: string
+          nome?: string
+          objetivo?: string
+          periodo?: number
+          plano_interesse?: string
+          proximas_provas?: string | null
+          status?: string
+          trabalha?: boolean
+          turno?: string
+          whatsapp?: string
+        }
+        Relationships: []
+      }
+      lembretes: {
+        Row: {
+          assinante_id: string | null
+          concluido: boolean
+          created_at: string
+          data_hora: string
+          descricao: string | null
+          id: string
+          titulo: string
+        }
+        Insert: {
+          assinante_id?: string | null
+          concluido?: boolean
+          created_at?: string
+          data_hora: string
+          descricao?: string | null
+          id?: string
+          titulo: string
+        }
+        Update: {
+          assinante_id?: string | null
+          concluido?: boolean
+          created_at?: string
+          data_hora?: string
+          descricao?: string | null
+          id?: string
+          titulo?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lembretes_assinante_id_fkey"
+            columns: ["assinante_id"]
+            isOneToOne: false
+            referencedRelation: "assinantes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +392,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin"],
+    },
   },
 } as const
