@@ -51,7 +51,7 @@ export function formatDateTime(d: string | Date) {
 /** Parse "aaaa-mm-dd" como data local (sem fuso). */
 export function parseDate(s: string) {
   if (/^\d{4}-\d{2}-\d{2}$/.test(s)) {
-    const [y, m, d] = s.split("-").map(Number);
+    const [y = 0, m = 1, d = 1] = s.split("-").map(Number);
     return new Date(y, m - 1, d);
   }
   return new Date(s);
@@ -136,7 +136,7 @@ export interface LeadResumo {
   plano: PlanoId;
   horas_livres: number;
   dificuldades: string[];
-  proximas_provas?: string;
+  proximas_provas?: string | undefined;
 }
 export function mensagemObrigado(l: LeadResumo) {
   return `Oi! Acabei de montar meu plano no Ritmo. Nome: ${l.nome} | Curso: ${l.curso} (${l.periodo}º período) - ${l.instituicao} | Plano: ${PLANOS[l.plano].nome} | Horas livres/dia: ${l.horas_livres} | Dificuldades: ${l.dificuldades.join(", ")} | Próximas provas: ${l.proximas_provas?.trim() || "nenhuma informada"}`;

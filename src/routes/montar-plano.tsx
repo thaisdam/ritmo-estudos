@@ -29,8 +29,8 @@ import {
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/montar-plano")({
-  validateSearch: (s: Record<string, unknown>): { plano?: PlanoId } => ({
-    plano: isPlanoId(s.plano) ? s.plano : undefined,
+  validateSearch: (s: Record<string, unknown>): { plano?: PlanoId | undefined } => ({
+    plano: isPlanoId(s["plano"]) ? s["plano"] : undefined,
   }),
   head: () => ({
     meta: [
@@ -90,7 +90,7 @@ const STEPS: { title: string; fields: FieldPath<FormData>[] }[] = [
   { title: "Seu plano", fields: ["plano", "consentimento"] },
 ];
 
-function Field({ label, error, children, htmlFor }: { label: string; error?: string; children: React.ReactNode; htmlFor?: string }) {
+function Field({ label, error, children, htmlFor }: { label: string; error?: string | undefined; children: React.ReactNode; htmlFor?: string }) {
   return (
     <div className="space-y-2">
       <Label htmlFor={htmlFor} className="font-semibold">
@@ -158,7 +158,7 @@ function MontarPlano() {
   const v = watch();
 
   const next = async () => {
-    const ok = await trigger(STEPS[step].fields);
+    const ok = await trigger(STEPS[step]!.fields);
     if (ok) {
       setStep((s) => s + 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -177,7 +177,7 @@ function MontarPlano() {
       periodo: Number(d.periodo),
       turno: d.turno,
       faz_idioma: d.faz_idioma === "sim",
-      idioma_detalhes: d.faz_idioma === "sim" ? d.idioma_detalhes?.trim() : null,
+      idioma_detalhes: d.faz_idioma === "sim" ? (d.idioma_detalhes?.trim() ?? null) : null,
       cursos_complementares: d.cursos_complementares?.trim() || null,
       trabalha: d.trabalha === "sim",
       horas_trabalho: d.trabalha === "sim" ? Number(d.horas_trabalho) : null,
@@ -221,7 +221,7 @@ function MontarPlano() {
           <div className="mt-8">
             <div className="mb-2 flex justify-between text-sm font-medium">
               <span className="text-primary">
-                Etapa {step + 1} de 4 · {STEPS[step].title}
+                Etapa {step + 1} de 4 · {STEPS[step]!.title}
               </span>
               <span className="text-muted-foreground">{Math.round(((step + 1) / 4) * 100)}%</span>
             </div>

@@ -13,6 +13,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as MontarPlanoRouteImport } from './routes/montar-plano'
 import { Route as ObrigadoRouteImport } from './routes/obrigado'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminAssinantesRouteImport } from './routes/admin.assinantes'
+import { Route as AdminEntregasRouteImport } from './routes/admin.entregas'
+import { Route as AdminLeadsRouteImport } from './routes/admin.leads'
+import { Route as AdminLembretesRouteImport } from './routes/admin.lembretes'
 import { Route as AdminLoginRouteImport } from './routes/admin_.login'
 
 const IndexRoute = IndexRouteImport.update({
@@ -35,6 +40,31 @@ const ObrigadoRoute = ObrigadoRouteImport.update({
   path: '/obrigado',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAssinantesRoute = AdminAssinantesRouteImport.update({
+  id: '/assinantes',
+  path: '/assinantes',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminEntregasRoute = AdminEntregasRouteImport.update({
+  id: '/entregas',
+  path: '/entregas',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLeadsRoute = AdminLeadsRouteImport.update({
+  id: '/leads',
+  path: '/leads',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLembretesRoute = AdminLembretesRouteImport.update({
+  id: '/lembretes',
+  path: '/lembretes',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/admin_/login',
   path: '/admin/login',
@@ -43,43 +73,81 @@ const AdminLoginRoute = AdminLoginRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/montar-plano': typeof MontarPlanoRoute
   '/obrigado': typeof ObrigadoRoute
+  '/admin/assinantes': typeof AdminAssinantesRoute
+  '/admin/entregas': typeof AdminEntregasRoute
+  '/admin/leads': typeof AdminLeadsRoute
+  '/admin/lembretes': typeof AdminLembretesRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
   '/montar-plano': typeof MontarPlanoRoute
   '/obrigado': typeof ObrigadoRoute
+  '/admin/assinantes': typeof AdminAssinantesRoute
+  '/admin/entregas': typeof AdminEntregasRoute
+  '/admin/leads': typeof AdminLeadsRoute
+  '/admin/lembretes': typeof AdminLembretesRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/montar-plano': typeof MontarPlanoRoute
   '/obrigado': typeof ObrigadoRoute
+  '/admin/assinantes': typeof AdminAssinantesRoute
+  '/admin/entregas': typeof AdminEntregasRoute
+  '/admin/leads': typeof AdminLeadsRoute
+  '/admin/lembretes': typeof AdminLembretesRoute
   '/admin_/login': typeof AdminLoginRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/montar-plano' | '/obrigado' | '/admin/login'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/montar-plano'
+    | '/obrigado'
+    | '/admin/assinantes'
+    | '/admin/entregas'
+    | '/admin/leads'
+    | '/admin/lembretes'
+    | '/admin/login'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/montar-plano' | '/obrigado' | '/admin/login'
+  to:
+    | '/'
+    | '/montar-plano'
+    | '/obrigado'
+    | '/admin/assinantes'
+    | '/admin/entregas'
+    | '/admin/leads'
+    | '/admin/lembretes'
+    | '/admin/login'
+    | '/admin'
   id:
     | '__root__'
     | '/'
     | '/admin'
     | '/montar-plano'
     | '/obrigado'
+    | '/admin/assinantes'
+    | '/admin/entregas'
+    | '/admin/leads'
+    | '/admin/lembretes'
     | '/admin_/login'
+    | '/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRoute: typeof AdminRoute
+  AdminRoute: typeof AdminRouteWithChildren
   MontarPlanoRoute: typeof MontarPlanoRoute
   ObrigadoRoute: typeof ObrigadoRoute
   AdminLoginRoute: typeof AdminLoginRoute
@@ -115,6 +183,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ObrigadoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/assinantes': {
+      id: '/admin/assinantes'
+      path: '/assinantes'
+      fullPath: '/admin/assinantes'
+      preLoaderRoute: typeof AdminAssinantesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/entregas': {
+      id: '/admin/entregas'
+      path: '/entregas'
+      fullPath: '/admin/entregas'
+      preLoaderRoute: typeof AdminEntregasRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/leads': {
+      id: '/admin/leads'
+      path: '/leads'
+      fullPath: '/admin/leads'
+      preLoaderRoute: typeof AdminLeadsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/lembretes': {
+      id: '/admin/lembretes'
+      path: '/lembretes'
+      fullPath: '/admin/lembretes'
+      preLoaderRoute: typeof AdminLembretesRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin_/login': {
       id: '/admin_/login'
       path: '/admin/login'
@@ -125,9 +228,27 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AdminRouteChildren {
+  AdminAssinantesRoute: typeof AdminAssinantesRoute
+  AdminEntregasRoute: typeof AdminEntregasRoute
+  AdminLeadsRoute: typeof AdminLeadsRoute
+  AdminLembretesRoute: typeof AdminLembretesRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminAssinantesRoute: AdminAssinantesRoute,
+  AdminEntregasRoute: AdminEntregasRoute,
+  AdminLeadsRoute: AdminLeadsRoute,
+  AdminLembretesRoute: AdminLembretesRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRoute: AdminRoute,
+  AdminRoute: AdminRouteWithChildren,
   MontarPlanoRoute: MontarPlanoRoute,
   ObrigadoRoute: ObrigadoRoute,
   AdminLoginRoute: AdminLoginRoute,
